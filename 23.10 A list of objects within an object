@@ -1,0 +1,126 @@
+import java.util.ArrayList;
+
+public class Team {
+    private String name;
+    private ArrayList<Player> team;
+    private int max;
+    private int size;
+    private int goals;
+
+    public Team(String name){
+        this.name = name;
+        this.team = new ArrayList<Player>();
+        this.max = 16;
+        this.size = 0;
+        this.goals = 0;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public void addPlayer(Player noob){
+        if(this.size < this.max) {
+            this.size++;
+            team.add(noob);
+            this.goals += noob.goals();
+        }
+    }
+
+    public void printPlayers(){
+        for(Player i : team){
+            System.out.println(i);
+        }
+    }
+
+    public void setMaxSize(int maxSize){
+        this.max = maxSize;
+    }
+
+    public int size(){
+        return size;
+    }
+
+    public int goals(){
+        return this.goals;
+    }
+}
+//////////////////////////////////////////////////////////////////////
+
+public class Player {
+    private String name;
+    private int goals;
+
+    public Player(String name){
+        this.name = name;
+        this.goals = 0;
+    }
+
+    public Player(String name, int goals){
+        this.name = name;
+        this.goals = goals;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public int goals(){
+        return this.goals;
+    }
+
+    public String toString(){
+        return this.name + ", Goals: " + this.goals;
+    }
+}
+/////////////////////////////////////////////////////////////////////////
+
+public class Main {
+
+    public static void main(String[] args) {
+//        Exercise 90.1: Class Team
+//        Implement a class Team. At this stage team has only a name (String)
+        Team barcelona = new Team("FC Barcelona");
+        System.out.println("Team: " + barcelona.getName());
+
+//        Exercise 90.2: Player
+//        Create a class Player with the instance variables for the player name and the amount of goals.
+//        A player should have two constructors: one that initializes the name and an another that initializes the name and the amount of goals.
+        Player brian = new Player("Brian");
+        System.out.println("Player: " + brian);
+
+        Player pekka = new Player("Pekka", 39);
+        System.out.println("Player: " + pekka);
+
+//        Exercise 90.3: Adding players to a team
+//        Add to the class Team the following methods:
+//        addPlayer, adds a player to the team
+//        printPlayers, prints the players in the team
+        barcelona.addPlayer(brian);
+        barcelona.addPlayer(pekka);
+        barcelona.addPlayer(new Player("Mikael", 1)); // works similarly as the above
+
+        barcelona.printPlayers();
+
+//        Exercise 90.4: The team maximum size and current size
+//        Add to the class Team the methods
+//        setMaxSize(int maxSize), sets the maximum number of players that the team can have
+//        size, returns the number of players in the team
+
+        Team barcelona = new Team("FC Barcelona");
+        barcelona.setMaxSize(16);
+
+        Player brian = new Player("Brian");
+        Player pekka = new Player("Pekka", 39);
+        barcelona.addPlayer(brian);
+        barcelona.addPlayer(pekka);
+        barcelona.addPlayer(new Player("Mikael", 1)); // works similarly as the above
+
+        System.out.println("Number of players: " + barcelona.size());
+
+//        Exercise 90.5: Goals of a team
+//        Add to the class Team the method
+//        goals, returns the total number of goals for all the players in the team
+        System.out.println("Total goals: " + barcelona.goals());
+    }
+}
