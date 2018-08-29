@@ -1,0 +1,103 @@
+public class Person {
+    private String name;
+    private String number;
+
+    public Person(String name, String number){
+        this.name = name;
+        this.number = number;
+    }
+    public String toString(){
+        return name + " number: " + number;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public String getNumber(){
+        return this.number;
+    }
+
+    public void changeNumber(String newNumber){
+        this.number = newNumber;
+    }
+}
+////////////////////////////////////////////////////////////////
+
+import java.util.ArrayList;
+
+public class Phonebook {
+    private ArrayList<Person> phoneBook;
+
+    public Phonebook() {
+        this.phoneBook = new ArrayList<Person>();
+    }
+
+    public void add(String name, String number){
+        Person adder = new Person (name, number);
+        phoneBook.add(adder);
+    }
+
+    public void printAll(){
+        for(int i = 0; i < phoneBook.size(); i++){
+            System.out.println(phoneBook.get(i));
+        }
+    }
+
+    public String searchNumber(String name){
+        for (Person person:phoneBook) {
+            if (person.getName().contains(name)){
+                return person.getNumber();
+            }
+        }
+        return "number not known";
+    }
+}
+/////////////////////////////////////////////////////////////////
+
+  public class Main {
+
+    public static void main(String[] args) {
+//        Exercise 94.1: Person
+//        implement the following class:
+//        the method public String toString(), which returns the string representation formulated as the above example shows
+//        constructor that sets the person name and phone number
+//        public String getName(), that returns the name
+//        public String getNumber(), that returns the phone number
+//        the method public void changeNumber(String newNumber), that can be used to change the phone number of the person
+        Person pekka = new Person("Pekka Mikkola", "040-123123");
+
+        System.out.println(pekka.getName());
+        System.out.println(pekka.getNumber());
+
+        System.out.println(pekka);
+        pekka.changeNumber("050-333444");
+        System.out.println(pekka);
+
+//        Exercise 94.2: Adding persons to Phonebook
+//        Program the class Phonebook that stores Person-objects using an ArrayList. At this stage you'll need the following methods:
+//        public void add(String name, String number) creates a Person-object and adds it to the ArrayList inside the Phonebook
+//        public void printAll(), prints all the persons inside the Phonebook
+        Phonebook phonebook = new Phonebook();
+
+        phonebook.add("Pekka Mikkola", "040-123123");
+        phonebook.add("Edsger Dijkstra", "045-456123");
+        phonebook.add("Donald Knuth", "050-222333");
+
+        phonebook.printAll();
+
+//        Exercise 94.3: Searching for numbers from the phonebooks
+//        Extend the class Phonebook with the method public String searchNumber(String name), that returns the phone number corresponding to the given name.
+//        If the sought person is not known the string "number not known" is returned.
+        Phonebook phonebook = new Phonebook();
+        phonebook.add("Pekka Mikkola", "040-123123");
+        phonebook.add("Edsger Dijkstra", "045-456123");
+        phonebook.add("Donald Knuth", "050-222333");
+
+        String number = phonebook.searchNumber("Pekka Mikkola");
+        System.out.println( number );
+
+        number = phonebook.searchNumber("Martti Tienari");
+        System.out.println( number );
+    }
+}
