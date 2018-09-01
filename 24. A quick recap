@@ -22,7 +22,7 @@ public class Person {
         this.number = newNumber;
     }
 }
-////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
 
 import java.util.ArrayList;
 
@@ -45,7 +45,7 @@ public class Phonebook {
     }
 
     public String searchNumber(String name){
-        for (Person person:phoneBook) {
+        for (Person person : phoneBook) {
             if (person.getName().contains(name)){
                 return person.getNumber();
             }
@@ -53,9 +53,68 @@ public class Phonebook {
         return "number not known";
     }
 }
-/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
 
-  public class Main {
+public class Money {
+
+    private final int euros;
+    private final int cents;
+
+    public Money(int euros, int cents) {
+
+        if (cents > 99) {
+            euros += cents / 100;
+            cents %= 100;
+        }
+
+        this.euros = euros;
+        this.cents = cents;
+    }
+
+    public int euros(){
+        return euros;
+    }
+
+    public int cents(){
+        return cents;
+    }
+
+    public String toString() {
+        String zero = "";
+        if (cents <= 10) {
+            zero = "0";
+        }
+
+        return euros + "." + zero + cents + "e";
+    }
+
+    public Money plus(Money added){
+        Money newMoney = new Money(this.euros + added.euros, this.cents + added.cents);
+        return newMoney;
+    }
+
+    public boolean less(Money compared){
+        if(this.euros < compared.euros){
+            return true;
+        }
+        if(this.euros == compared.euros && this.cents < compared.cents){
+            return true;
+        }
+        return false;
+    }
+
+    public Money minus(Money decremented){
+        Money newMoney = new Money(this.euros - decremented.euros, this.cents - decremented.cents);
+        if(newMoney.euros < 0 || newMoney.cents < 0){
+            Money noMoney = new Money(0,0);
+            return noMoney;
+        }
+        return newMoney;
+    }
+}
+/////////////////////////////////////////////////////////////////////////////////
+
+public class Main {
 
     public static void main(String[] args) {
 //        Exercise 94.1: Person
@@ -99,5 +158,56 @@ public class Phonebook {
 
         number = phonebook.searchNumber("Martti Tienari");
         System.out.println( number );
+
+//        Exercise 95.1: Plus
+//        Implementing the method public Money plus(Money added), that returns a new Money object that has a value equal to the sum of the object
+//        for which the method was called and the object given as parameter.
+        Money a = new Money(10,0);
+        Money b = new Money(5,0);
+
+        Money c = a.plus(b);
+
+        System.out.println(a);  // 10.00e
+        System.out.println(b);  // 5.00e
+        System.out.println(c);  // 15.00e
+
+        a = a.plus(c);          // NOTE: new Money-object is created and reference to that
+        //           is assigned to variable a.
+        //       The Money object 10.00e that variable a used to hold
+        //           is not referenced anymore
+
+        System.out.println(a);  // 25.00e
+        System.out.println(b);  // 5.00e
+        System.out.println(c);  // 15.00e
+
+//        Exercise 95.2: less
+//        Create the method public boolean less(Money compared), that returns true if the
+//        object for which the method was called is less valuable than the object given as parameter.
+        Money a = new Money(10,0);
+        Money b = new Money(3,0);
+        Money c = new Money(5,0);
+
+        System.out.println(a.less(b));  // false
+        System.out.println(b.less(c));  // true
+
+//        Exercise 95.3: Minus
+//        And finally create the method public Money minus(Money decremented), that returns a new Money object that
+//        has a value equal to the object for which the method was called minus the object given as parameter.
+//                If the value would be negative, the resulting Money object should have the value 0.
+        Money a = new Money(10,0);
+        Money b = new Money(3,50);
+
+        Money c = a.minus(b);
+
+        System.out.println(a);  // 10.00e
+        System.out.println(b);  // 3.50e
+        System.out.println(c);  // 6.50e
+
+        c = c.minus(a);         // NOTE: new Money-object is created and reference to that is assigned to variable c
+        //       the Money object 6.50e that variable c used to hold, is not referenced anymore
+
+        System.out.println(a);  // 10.00e
+        System.out.println(b);  // 3.50e
+        System.out.println(c);  // 0.00e
     }
 }
