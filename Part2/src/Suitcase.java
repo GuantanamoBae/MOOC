@@ -4,7 +4,7 @@ public class Suitcase {
 
     private int maxWeight;
     private int currentWeight;
-    private ArrayList<Thing> things = new ArrayList<Thing>();
+    private static ArrayList<Thing> things = new ArrayList<Thing>();
     private Thing heaviestThing;
 
     public Suitcase(int max_weight) {
@@ -27,7 +27,7 @@ public class Suitcase {
         return things.size() + " things " + "(" + this.currentWeight + " kg)";
     }
 
-    public void printThings() {
+    public static void printThings() {
         for(int i = 0; i < things.size(); i++){
             System.out.println(things.get(i));
         }

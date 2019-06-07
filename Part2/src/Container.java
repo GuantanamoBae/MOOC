@@ -3,8 +3,8 @@ import java.util.ArrayList;
 public class Container {
 
     private int maxWeight;
-    private int currentWeight;
-    private ArrayList<Suitcase> luggage = new ArrayList<>();
+    private static int currentWeight;
+    private static ArrayList<Suitcase> luggage = new ArrayList<>();
 
     public Container(int max){
         this.maxWeight = max;
@@ -19,12 +19,14 @@ public class Container {
     }
 
     public String toString(){
-        return luggage.size() + " suitcases " + "(" + this.currentWeight + " kg)";
+        return luggage.size() + " suitcases " + "(" + currentWeight + " kg)";
     }
 
     public void printThings() {
-        for(int i = 0; i < luggage.size(); i++){
-            Suitcase.printThings();
-        }
+        Suitcase.printThings();
+    }
+
+    public int getMaxWeight(){
+        return this.maxWeight;
     }
 }
